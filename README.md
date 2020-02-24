@@ -60,4 +60,37 @@ Firstly, this tool (which is called Cognizant) is utter fucking garbage. No docu
 
 After more persistence, he finally got one of the contractors to give him a script that would run the tests from command line. So, he set up his CI job to run the tests at a regular interval, and noticed that some of the tests would randomly fail, for no apparent reason. After a few days of fighting with this, he called me to take a look.
 
-Chris explained to me that when he runs tests one-at-a-time, they always work. When he runs them in parallel, they randomly fail. Of course, the first thing that comes to mind is that something isn't being synchronized properly. We add some logging to the "fully-features" third-party product and narrow our search.
+Chris explained to me that when he runs tests one-at-a-time, they always work. When he runs them in parallel, they randomly fail. Of course, the first thing that comes to mind is that something isn't being synchronized properly. We add some logging to the "fully-features" third-party product and narrow our search. I laughed out loud when I discovered the problem.
+
+When you do WebDriver automation, your code keeps a WebDriver object which acts as a handle to the browser. This is how you send commands like "type something in this text field" or "go to this URL". This fully-featured product, which is advertized as being able to run tests in parallel, contained only one WebDriver reference, and it was static. This means if you run one test at a time, everything works fine. If you run, say, 5 tests at once, they will each replace the reference to that handle, and then the first test to complete will close the browser window of the last test that started, causing it to fail.
+
+The tests written by the contractors was even worse. We found such gems as
+```
+for (int i=1 ; i<=2 ; i++){
+    if (i==1){
+        //do something
+    } else if (i==2){
+        //do something else
+    }
+}
+```
+and
+```
+for (int i=1 ; i<=3 ; i++){
+    switch (i){
+        case 1: doSomething(i-1);break;
+        case 2: doSomething(i-1);break;
+        case 3: doSomething(i-1);break;
+    }
+}
+```
+and (comments mine)
+```
+public boolean validate(int input){
+    String[] values = {"0","1","2"}; //length=3
+    if (input <= values.length){
+        setSomething(values[input]); //throws exception if input==3
+        return true;
+    }
+}
+```
