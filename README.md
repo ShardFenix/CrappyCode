@@ -1,5 +1,5 @@
 # CrappyCode
-This is a collection of programming horror stories that I have encountered over the years. Most of these were found as I was working at an insurance company.
+This is a collection of programming horror stories that I have encountered over the years. Most of these were found as I was working at an insurance company. They are face-palmy enough that I decided to share them. Perhaps you can learn some lessons from these stories, just as I have.
 
 ### The Case of the Uncommitted, Untested, Unoptimized Code
 We owned a batch job that ran daily. Until this incident, we'd never had a problem with it. One day, it started throwing OutOfMemory Exceptions - likely due to our rapidly growing customer base. I looked at the stack trace to find the line it was blowing up on (as you do), and I opened up my Subversion client to check out the code.
