@@ -96,3 +96,24 @@ public boolean validate(int input){
     }
 }
 ```
+
+### An interview that went off the rails
+We had a guy (we will call him Dave) apply for a Senior Engineer position on our team. His resume looked pretty good, 9+ years of java, plentiful frontend experience. We did a phone screen and he answered all of the questions satisfactorily, so we brought him in for an in-person interview. COVID-19 had just struck, so we ended up doing a call-in interview with one of those shared text boxes for writing code. Remember: Senior engineer position, 9+ years of Java experience.
+
+I asked the first question, which I thought was too easy (considering the position he applied for): Write a java method that determines if an integer is prime. I would expect someone with 9+ years of java experience to be able to bang this out in 3-5 minutes, including the time they take to explain their process.
+
+20 minutes later, Dave finished coding it. It was wrong. It also wasn't optimized (that's usually the second half of the exercise). 9+ years of Java experience. My ass.
+
+Dave spent the first 5 minutes of the exercise googling what a prime number is. 9+ years Java experience. Technical background. Didn't understand prime numbers.
+
+Next, my manager asked some design questions: Design a database and a service to manage user logins. This is a pretty standard thing: Create your user table, a security questions table, and a login history table, and an API to get data from it. It took Dave so long to design the tables that we never got to the service API part of the question. His tables weren't even normalized.
+
+He wanted to store the password in the user table, so I asked how. He said Spring would do it (fair enough), so I asked him how Spring decided whether your password is correct when you login (i wanted him to explain a little bit about encryption and/or salting). He bullshitted the answer, and was wrong of course. His resume included Spring Security as a list of things he knew very well. Bullshit.
+
+My manager asked Dave to write a query that would list every user that logged in today. This was a hilarious question, because Dave designed his tables in a way that made this query impossible to produce. The first thing he did of course, is google "sql join". Then he proceeded to write a query with a hard-coded cutoff date. When I asked him how comfortable he was with writing SQL in the phone screen, he said 7 out of 10. Bullshit.
+
+It wasn't a complete waste of our time, though. We were having too much fun in chat behind his back. A good hour or so of entertainment on behalf of this 9+ year senior engineer applicant who didn't know what prime numbers or table joins were. Our architect, who usually sits out of interviews, was present for this one and said
+- Your guys are brutal... I'm going to use them for all my interviews :)
+- seriously, thank for you convincing me to join
+- if only I could get my glass of bourbon...it'd be perfect
+
